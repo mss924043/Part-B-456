@@ -1,36 +1,38 @@
-name: Build and Publish Artifacts
+name: Main Workflow
 
 on:
   push:
     branches:
-      - '*'  # Adjust branch name if necessary
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Check out code
+        uses: actions/checkout@v2
+      
+      # You can add more steps here to build and test your code
+      # For example:
+      # - name: Build
+      #   run: make
+      
+      # - name: Test
+      #   run: make test
 
-    - name: Set up GCC
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+  process_part_b_yaml:
+    runs-on: ubuntu-latest
 
-    - name: Install dependencies
-      run: sudo apt-get install -y g++ make
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Create build directory
-      run: mkdir build
-
-    - name: Build project
-      working-directory: ./build
-      run: make
-
-    - name: Publish binaries
-      if: success()
-      uses: actions/upload-artifact@v2
-      with:
-        name: binaries
-        path: build/  # Adjust path to your built artifacts
+      - name: Display Part-b.yaml contents
+        run: cat Part-b.yaml
+      
+      # You can add more steps here to process the Part-b.yaml file
+      # For example, you could validate its syntax, extract information, etc.
