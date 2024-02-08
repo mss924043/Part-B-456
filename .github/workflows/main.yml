@@ -17,10 +17,15 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
+
     - name: Install dependencies
       run: sudo apt-get install -y g++ make
 
+    - name: Create build directory
+      run: mkdir build
+
     - name: Build project
+      working-directory: ./build
       run: make
 
     - name: Publish binaries
@@ -28,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: binaries
-        path: path/to/your/executable  # Adjust path to your .exe files
+        path: build/path/to/your/executable  # Adjust path to your .exe files within the build directory
