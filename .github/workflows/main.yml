@@ -13,10 +13,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up GCC
-      uses: actions/setup-python@v2
+    - name: Set up C++ toolchain
+      uses: actions/setup-cpp@v2
       with:
-        python-version: '3.x'
+        compiler: 'gcc'  # Specify the C++ compiler you want to use, e.g., 'gcc' or 'clang'
+        cmake: 'latest'  # Use the latest version of CMake
 
     - name: Install dependencies
       run: sudo apt-get install -y g++ make
@@ -26,11 +27,13 @@ jobs:
 
     - name: Build project
       working-directory: ./build
-      run: make
+      run: |
+        cmake ..
+        make
 
     - name: Publish binaries
       if: success()
       uses: actions/upload-artifact@v2
       with:
         name: binaries
-        path: build/path/to/your/executable  # Adjust path to your .exe files within the build directory
+        path: build/path/to/your/executable  # Adjust path to your executables within the build directory
