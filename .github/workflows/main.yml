@@ -1,0 +1,31 @@
+name: Build and Publish Binaries
+
+on:
+  push:
+    branches:
+      - main  # Adjust branch name if necessary
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up GCC
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: sudo apt-get install -y g++ make
+
+    - name: Build project
+      run: make
+
+    - name: Publish binaries
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: binaries
+        path: path/to/your/executable  # Adjust path to your .exe files
