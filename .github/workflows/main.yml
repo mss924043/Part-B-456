@@ -1,4 +1,4 @@
-name: Build and Publish Binaries
+name: Build and Publish Artifacts
 
 on:
   push:
@@ -13,11 +13,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up C++ toolchain
-      uses: actions/setup-cpp@v2
+    - name: Set up GCC
+      uses: actions/setup-python@v2
       with:
-        compiler: 'gcc'  # Specify the C++ compiler you want to use, e.g., 'gcc' or 'clang'
-        cmake: 'latest'  # Use the latest version of CMake
+        python-version: '3.x'
 
     - name: Install dependencies
       run: sudo apt-get install -y g++ make
@@ -27,13 +26,11 @@ jobs:
 
     - name: Build project
       working-directory: ./build
-      run: |
-        cmake ..
-        make
+      run: make
 
     - name: Publish binaries
       if: success()
       uses: actions/upload-artifact@v2
       with:
         name: binaries
-        path: build/path/to/your/executable  # Adjust path to your executables within the build directory
+        path: build/  # Adjust path to your built artifacts
