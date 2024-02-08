@@ -31,11 +31,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Check if Part-b.yaml exists
+      - name: Check if Part-b.yml exists
         run: '[ -f "Part-b.yaml" ] && echo "File exists" || echo "File not found"'
       
-      - name: Display Part-b.yaml contents
-        run: cat Part-b.yaml
+      - name: Display Part-b.yml contents
+        run: cat Part-b.yml
         if: success()  # Only run this step if the file exists
       
       # You can add more steps here to process the Part-b.yaml file
