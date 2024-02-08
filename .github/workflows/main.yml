@@ -3,7 +3,7 @@ name: Build and Publish Binaries
 on:
   push:
     branches:
-      - main  # Adjust branch name if necessary
+      - '*'  # Adjust branch name if necessary
 
 jobs:
   build:
