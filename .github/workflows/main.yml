@@ -16,13 +16,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       
-      # You can add more steps here to build and test your code
-      # For example:
-      # - name: Build
-      #   run: make
+      - name: Build code
+        run: make  # Add a step to build your code
       
-      # - name: Test
-      #   run: make test
+      - name: Test code
+        run: make test  # Add a step to test your code
 
   process_part_b_yaml:
     runs-on: ubuntu-latest
@@ -31,7 +29,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Check if Part-b.yml exists
+      - name: Check if Part-b.yaml exists
         run: '[ -f "Part-b.yaml" ] && echo "File exists" || echo "File not found"'
       
       - name: Display Part-b.yml contents
