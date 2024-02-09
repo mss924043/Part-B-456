@@ -1,5 +1,4 @@
-name: Main Workflow
-
+name: Build and Publish
 on:
   push:
     branches:
@@ -7,34 +6,23 @@ on:
   pull_request:
     branches:
       - '*'
-
+      
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      
-      - name: Build code
-        run: make  # Add a step to build your code
-      
-      - name: Test code
-        run: make test  # Add a step to test your code
-
-  process_part_b_yaml:
-    runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Check if Part-b.yaml exists
-        run: '[ -f "Part-b.yaml" ] && echo "File exists" || echo "File not found"'
+    - name: Build and Publish
+      run: |
+        make
+        mkdir -p bin
+        mv Part-B.exe bin/
       
-      - name: Display Part-b.yml contents
-        run: cat Part-b.yml
-        if: success()  # Only run this step if the file exists
-      
-      # You can add more steps here to process the Part-b.yaml file
-      # For example, you could validate its syntax, extract information, etc.
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Part-B
+        path: bin/Part-B.exe
