@@ -3,7 +3,7 @@
 CC = g++
 CFLAGS = -Wall -Wextra -std=c++17
 
-SRC = PartC.cpp
+SRC = PartB.cpp
 OBJ = $(SRC:.cpp=.o)
 TARGET = Part-B.exe
 HEX_TARGET = Part-B.hex
